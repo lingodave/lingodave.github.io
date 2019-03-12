@@ -14,41 +14,45 @@ var themes = {
 };
 var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1nmmf-46WO7Mi-_EOb5rIRGZyfMA9VB4BZYfMFttOjBM/edit?usp=sharing';
 
-$(".front").css('background-color', themes[selected_theme].frbg);
-$(".back").css('background-color', themes[selected_theme].babg);
-$(".back").css('border-color', themes[selected_theme].brbc);
-$(".btn-primary").css('background-color', themes[selected_theme].frbg);
+$(document).ready(function() {
+  $(".front").css('background-color', themes[selected_theme].frbg);
+  $(".back").css('background-color', themes[selected_theme].babg);
+  $(".back").css('border-color', themes[selected_theme].brbc);
+  $(".btn-primary").css('background-color', themes[selected_theme].frbg);
 
-if (google) {
-  Tabletop.init( { key: publicSpreadsheetUrl,
-                  callback: loadSheet,
-                  simpleSheet: true } )
-} else {
-  initCards(str);
-}
-
-
-$(".flippable").click(function(){
-  $(this).toggleClass("flipme");
-});
-$("[data-name='random']").click(function() {
-  LoadCard("random");
-});
-$("[data-name='next']").click(function() {
-  card_no = card_no + 1;
-  if (card_no > arrayLength) {
-    card_no = arrayLength;
+  if (google) {
+    Tabletop.init( { key: publicSpreadsheetUrl,
+                    callback: loadSheet,
+                    simpleSheet: true } )
+  } else {
+    initCards(str);
   }
-  LoadCard("next");
-});
-$("[data-name='prev']").click(function() {
-  card_no = card_no - 1;
-  if (card_no < 1) {
-    card_no = 1;
-  }
-  LoadCard("next");
-});
 
+
+  $(".flippable").click(function(){
+    console.log("CLICKED");
+    $(this).toggleClass("flipme");
+  });
+  $("[data-name='random']").click(function() {
+    LoadCard("random");
+  });
+  $("[data-name='next']").click(function() {
+    console.log("Next");
+    card_no = card_no + 1;
+    if (card_no > arrayLength) {
+      card_no = arrayLength;
+    }
+    LoadCard("next");
+  });
+  $("[data-name='prev']").click(function() {
+    console.log("Prev");
+    card_no = card_no - 1;
+    if (card_no < 1) {
+      card_no = 1;
+    }
+    LoadCard("next");
+  });
+});
 
 function LoadCard(cmd) {
   if (cmd === "first") {
